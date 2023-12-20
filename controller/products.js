@@ -21,7 +21,8 @@ class Product {
       }
       fs.unlink(filePath, (err) => {
         if (err) {
-          return err;
+          // return err;
+          console.error(err);
         }
       });
     }
@@ -88,9 +89,12 @@ class Product {
         let save = await newProduct.save();
         if (save) {
           return res.json({ success: "Product created successfully" });
+        } else {
+          return res.json({ error: "Failed to save the product" });
         }
       } catch (err) {
         console.log(err);
+        Product.deleteImages(images, "file");
         return res.json({ error: "Internal Server Error" });
       }
     }
