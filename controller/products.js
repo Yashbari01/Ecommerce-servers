@@ -62,7 +62,7 @@ class Product {
     else if (pName.length > 255 || pDescription.length > 3000) {
       Product.deleteImages(images, "file");
       return res.json({
-        error: "Name 255 & Description must not be 3000 charecter long",
+        error: "Name must be 255 characters & Description must not exceed 3000 characters",
       });
     }
     // Validate Images
@@ -91,6 +91,7 @@ class Product {
         }
       } catch (err) {
         console.log(err);
+        return res.json({ error: "Internal Server Error" });
       }
     }
   }
